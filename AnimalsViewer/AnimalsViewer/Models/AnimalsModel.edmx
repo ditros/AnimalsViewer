@@ -1,0 +1,313 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище AnimalsModel" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="Хранилище AnimalsModelContainer">
+          <EntitySet Name="Animal" EntityType="Хранилище AnimalsModel.Animal" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="AnimalType" EntityType="Хранилище AnimalsModel.AnimalType" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Location" EntityType="Хранилище AnimalsModel.Location" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Region" EntityType="Хранилище AnimalsModel.Region" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SkinColor" EntityType="Хранилище AnimalsModel.SkinColor" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="Animal_AnimalTypeId_fk" Association="Хранилище AnimalsModel.Animal_AnimalTypeId_fk">
+            <End Role="AnimalType" EntitySet="AnimalType" />
+            <End Role="Animal" EntitySet="Animal" />
+          </AssociationSet>
+          <AssociationSet Name="Animal_LocationId_fk" Association="Хранилище AnimalsModel.Animal_LocationId_fk">
+            <End Role="Location" EntitySet="Location" />
+            <End Role="Animal" EntitySet="Animal" />
+          </AssociationSet>
+          <AssociationSet Name="Animal_SkinColorId_fk" Association="Хранилище AnimalsModel.Animal_SkinColorId_fk">
+            <End Role="SkinColor" EntitySet="SkinColor" />
+            <End Role="Animal" EntitySet="Animal" />
+          </AssociationSet>
+          <AssociationSet Name="Location_RegionId_fk" Association="Хранилище AnimalsModel.Location_RegionId_fk">
+            <End Role="Region" EntitySet="Region" />
+            <End Role="Location" EntitySet="Location" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Animal">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="AnimalTypeId" Type="int" />
+          <Property Name="SkinColorId" Type="int" />
+          <Property Name="LocationId" Type="int" />
+        </EntityType>
+        <EntityType Name="AnimalType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="RegionId" Type="int" />
+        </EntityType>
+        <EntityType Name="Region">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="SkinColor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="Animal_AnimalTypeId_fk">
+          <End Role="AnimalType" Type="Хранилище AnimalsModel.AnimalType" Multiplicity="0..1" />
+          <End Role="Animal" Type="Хранилище AnimalsModel.Animal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AnimalType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Animal">
+              <PropertyRef Name="AnimalTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Animal_LocationId_fk">
+          <End Role="Location" Type="Хранилище AnimalsModel.Location" Multiplicity="0..1" />
+          <End Role="Animal" Type="Хранилище AnimalsModel.Animal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Animal">
+              <PropertyRef Name="LocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Animal_SkinColorId_fk">
+          <End Role="SkinColor" Type="Хранилище AnimalsModel.SkinColor" Multiplicity="0..1" />
+          <End Role="Animal" Type="Хранилище AnimalsModel.Animal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SkinColor">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Animal">
+              <PropertyRef Name="SkinColorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Location_RegionId_fk">
+          <End Role="Region" Type="Хранилище AnimalsModel.Region" Multiplicity="0..1" />
+          <End Role="Location" Type="Хранилище AnimalsModel.Location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Region">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Location">
+              <PropertyRef Name="RegionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AnimalsModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="AnimalsEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Animal" EntityType="AnimalsModel.Animal" />
+          <EntitySet Name="AnimalType" EntityType="AnimalsModel.AnimalType" />
+          <EntitySet Name="Location" EntityType="AnimalsModel.Location" />
+          <EntitySet Name="Region" EntityType="AnimalsModel.Region" />
+          <EntitySet Name="SkinColor" EntityType="AnimalsModel.SkinColor" />
+          <AssociationSet Name="Animal_AnimalTypeId_fk" Association="AnimalsModel.Animal_AnimalTypeId_fk">
+            <End Role="AnimalType" EntitySet="AnimalType" />
+            <End Role="Animal" EntitySet="Animal" />
+          </AssociationSet>
+          <AssociationSet Name="Animal_LocationId_fk" Association="AnimalsModel.Animal_LocationId_fk">
+            <End Role="Location" EntitySet="Location" />
+            <End Role="Animal" EntitySet="Animal" />
+          </AssociationSet>
+          <AssociationSet Name="Animal_SkinColorId_fk" Association="AnimalsModel.Animal_SkinColorId_fk">
+            <End Role="SkinColor" EntitySet="SkinColor" />
+            <End Role="Animal" EntitySet="Animal" />
+          </AssociationSet>
+          <AssociationSet Name="Location_RegionId_fk" Association="AnimalsModel.Location_RegionId_fk">
+            <End Role="Region" EntitySet="Region" />
+            <End Role="Location" EntitySet="Location" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Animal">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="AnimalTypeId" Type="Int32" />
+          <Property Name="SkinColorId" Type="Int32" />
+          <Property Name="LocationId" Type="Int32" />
+          <NavigationProperty Name="AnimalType" Relationship="AnimalsModel.Animal_AnimalTypeId_fk" FromRole="Animal" ToRole="AnimalType" />
+          <NavigationProperty Name="Location" Relationship="AnimalsModel.Animal_LocationId_fk" FromRole="Animal" ToRole="Location" />
+          <NavigationProperty Name="SkinColor" Relationship="AnimalsModel.Animal_SkinColorId_fk" FromRole="Animal" ToRole="SkinColor" />
+        </EntityType>
+        <EntityType Name="AnimalType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Animal" Relationship="AnimalsModel.Animal_AnimalTypeId_fk" FromRole="AnimalType" ToRole="Animal" />
+        </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="RegionId" Type="Int32" />
+          <NavigationProperty Name="Animal" Relationship="AnimalsModel.Animal_LocationId_fk" FromRole="Location" ToRole="Animal" />
+          <NavigationProperty Name="Region" Relationship="AnimalsModel.Location_RegionId_fk" FromRole="Location" ToRole="Region" />
+        </EntityType>
+        <EntityType Name="Region">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Location" Relationship="AnimalsModel.Location_RegionId_fk" FromRole="Region" ToRole="Location" />
+        </EntityType>
+        <EntityType Name="SkinColor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Animal" Relationship="AnimalsModel.Animal_SkinColorId_fk" FromRole="SkinColor" ToRole="Animal" />
+        </EntityType>
+        <Association Name="Animal_AnimalTypeId_fk">
+          <End Role="AnimalType" Type="AnimalsModel.AnimalType" Multiplicity="0..1" />
+          <End Role="Animal" Type="AnimalsModel.Animal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AnimalType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Animal">
+              <PropertyRef Name="AnimalTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Animal_LocationId_fk">
+          <End Role="Location" Type="AnimalsModel.Location" Multiplicity="0..1" />
+          <End Role="Animal" Type="AnimalsModel.Animal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Animal">
+              <PropertyRef Name="LocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Animal_SkinColorId_fk">
+          <End Role="SkinColor" Type="AnimalsModel.SkinColor" Multiplicity="0..1" />
+          <End Role="Animal" Type="AnimalsModel.Animal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SkinColor">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Animal">
+              <PropertyRef Name="SkinColorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Location_RegionId_fk">
+          <End Role="Region" Type="AnimalsModel.Region" Multiplicity="0..1" />
+          <End Role="Location" Type="AnimalsModel.Location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Region">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Location">
+              <PropertyRef Name="RegionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище AnimalsModelContainer" CdmEntityContainer="AnimalsEntities">
+          <EntitySetMapping Name="Animal">
+            <EntityTypeMapping TypeName="AnimalsModel.Animal">
+              <MappingFragment StoreEntitySet="Animal">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="AnimalTypeId" ColumnName="AnimalTypeId" />
+                <ScalarProperty Name="SkinColorId" ColumnName="SkinColorId" />
+                <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AnimalType">
+            <EntityTypeMapping TypeName="AnimalsModel.AnimalType">
+              <MappingFragment StoreEntitySet="AnimalType">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Location">
+            <EntityTypeMapping TypeName="AnimalsModel.Location">
+              <MappingFragment StoreEntitySet="Location">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Region">
+            <EntityTypeMapping TypeName="AnimalsModel.Region">
+              <MappingFragment StoreEntitySet="Region">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SkinColor">
+            <EntityTypeMapping TypeName="AnimalsModel.SkinColor">
+              <MappingFragment StoreEntitySet="SkinColor">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

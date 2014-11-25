@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="db77a4722e4e4cfeba46989aa19dcfa8" Name="Диаграмма1">
+        <EntityTypeShape EntityType="AnimalsModel.Animal" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="AnimalsModel.AnimalType" Width="1.5" PointX="3" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AnimalsModel.Location" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AnimalsModel.Region" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AnimalsModel.SkinColor" Width="1.5" PointX="3" PointY="6.875" IsExpanded="true" />
+        <AssociationConnector Association="AnimalsModel.Animal_AnimalTypeId_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="AnimalsModel.Animal_LocationId_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="AnimalsModel.Animal_SkinColorId_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="AnimalsModel.Location_RegionId_fk" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

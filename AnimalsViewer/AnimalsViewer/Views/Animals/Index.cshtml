@@ -1,0 +1,79 @@
+﻿@model List<AnimalsViewer.Models.CAnimal>
+
+@{
+    ViewBag.Title = "Animals";
+}
+
+@{
+    <table>
+        <tr>
+
+            <th></th>
+
+            <th>
+                Id
+            </th>
+
+            <th>
+                Name
+            </th>
+
+            <th>
+                Type
+            </th>
+
+            <th>
+                Color
+            </th>
+
+            <th>
+                Region
+            </th>
+            
+            <th>
+                Location
+            </th>
+
+        </tr> 
+        @foreach (var animal in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new {id = animal.Id})
+                </td>
+
+                <td>
+                    @Html.Encode(animal.Id)
+                </td>
+
+                <td>
+                    @Html.Encode(animal.Name)
+                </td>
+
+                <td>
+                    @Html.Encode(animal.AnimalType)
+                </td>
+
+                <td>
+                    @Html.Encode(animal.SkinColor)
+                </td>
+
+                <td>
+                    @Html.Encode(animal.Region)
+                </td>
+                
+                <td>
+                    @Html.Encode(animal.Location)
+                </td>
+
+            </tr>
+        } 
+
+    </table>
+
+    <p>
+        @Html.ActionLink("Add new animal", "Create")
+    </p>
+}
+
+        
