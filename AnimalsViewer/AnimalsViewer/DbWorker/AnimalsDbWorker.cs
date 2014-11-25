@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AnimalsViewer.Models;
 
@@ -35,6 +36,33 @@ namespace AnimalsViewer.DbWorker
             }
 
             return null;
+        }
+
+        public static bool AddAnimalToDb(CAnimal animal)
+        {
+            using (var db = new AnimalsEntities())
+            {
+                try
+                {
+                    var skinColorId = db.SkinColor.First(x => x.Name == animal.SkinColor).Id;
+                    var animalTypeId = db.AnimalType.First(x => x.Name == animal.AnimalType).Id;
+                    var locationId = db.Location.First(x => x.Name == animal.Location).Id;
+                    var maxId = db.Animal.OrderByDescending(x => x.Id).First().Id;
+                    maxId = maxId + 1;
+                    db.Animal.Add(new Animal
+                                      {Id = maxId, Name = animal.Name, AnimalTypeId = animalTypeId, LocationId = locationId, SkinColorId = skinColorId});
+                    if (db.SaveChanges() > 0)
+                    {
+                        return true;
+                    }
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+
+            return false;
         }
     }
 }

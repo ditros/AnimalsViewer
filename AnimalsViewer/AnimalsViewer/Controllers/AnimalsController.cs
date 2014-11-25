@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using AnimalsViewer.DbWorker;
+using AnimalsViewer.Models;
 
 namespace AnimalsViewer.Controllers
 {
@@ -15,6 +16,18 @@ namespace AnimalsViewer.Controllers
         public ActionResult Create()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Create(CAnimal animal)
+        {
+            if(AnimalsDbWorker.AddAnimalToDb(animal))
+            {
+                ViewBag.AnimalCreationResult = "Животное успешно добавлено";
+            }
+            else ViewBag.AnimalCreationResult = "Животное не добавлено";
+
+            return RedirectToAction("Index");
         }
 
         public ActionResult Edit(int id)
