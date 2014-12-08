@@ -51,6 +51,30 @@ namespace AnimalsViewer.DbWorker
                     maxId = maxId + 1;
                     db.Animal.Add(new Animal
                                       {Id = maxId, Name = animal.Name, AnimalTypeId = animalTypeId, LocationId = locationId, SkinColorId = skinColorId});
+
+                    if (db.SaveChanges() > 0)
+                    {
+                        return true;
+                    }
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+
+            return false;
+        }
+
+        public static bool DeleteAnimalFromDb(int id)
+        {
+            using (var db = new AnimalsEntities())
+            {
+                try
+                {
+                    var animal = db.Animal.First(x => x.Id == id);
+                    db.Animal.Remove(animal);
+
                     if (db.SaveChanges() > 0)
                     {
                         return true;

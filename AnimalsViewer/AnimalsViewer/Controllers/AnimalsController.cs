@@ -15,7 +15,12 @@ namespace AnimalsViewer.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            var canimal = new CAnimal();
+            canimal.GetSkinColorsFromDb();
+            canimal.GetAnimalTypesFromDb();
+            canimal.GetLocationsFromDb();
+
+            return View(canimal);
         }
 
         [HttpPost]
@@ -33,6 +38,17 @@ namespace AnimalsViewer.Controllers
         public ActionResult Edit(int id)
         {
             throw new System.NotImplementedException();
+        }
+
+        public ActionResult Delete(int id)
+        {
+            if (AnimalsDbWorker.DeleteAnimalFromDb(id))
+            {
+                ViewBag.AnimalCreationResult = "Животное успешно удалено";
+            }
+            else ViewBag.AnimalCreationResult = "Животное не удалено";
+
+            return RedirectToAction("Index");
         }
     }
 }
