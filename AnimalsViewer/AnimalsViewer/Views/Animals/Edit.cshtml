@@ -1,12 +1,12 @@
 ﻿@model AnimalsViewer.Models.CAnimal
 
-@using (Html.BeginForm("Update", "Animals", FormMethod.Get)) {
+@using (Html.BeginForm("Update", "Animals", FormMethod.Post)) {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
     <fieldset>
         <legend>Animal</legend>
-
+        @Html.HiddenFor(model => model.Id)
         <div>
             @Html.LabelFor(model => model.Name)
         </div>
@@ -19,7 +19,6 @@
             @Html.LabelFor(model => model.AnimalType)
         </div>
         <div>
-            @*Html.EditorFor(model => model.AnimalType)*@
             @Html.DropDownListFor(model => model.AnimalType, Model.AnimalTypes)
             @Html.ValidationMessageFor(model => model.AnimalType)
         </div>
@@ -28,7 +27,6 @@
             @Html.LabelFor(model => model.SkinColor)
         </div>
         <div>
-            @*Html.EditorFor(model => model.SkinColor)*@
             @Html.DropDownListFor(model => model.SkinColor, Model.SkinColors)
             @Html.ValidationMessageFor(model => model.SkinColor)
         </div>
@@ -37,7 +35,6 @@
             @Html.LabelFor(model => model.Location)
         </div>
         <div>
-            @*Html.EditorFor(model => model.Location)*@
             @Html.DropDownListFor(model => model.Location, Model.Locations)
             @Html.ValidationMessageFor(model => model.Location)
         </div>

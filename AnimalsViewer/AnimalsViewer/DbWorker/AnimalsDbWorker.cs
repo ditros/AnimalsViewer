@@ -110,19 +110,33 @@ namespace AnimalsViewer.DbWorker
                 try
                 {
                     var animal = db.Animal.FirstOrDefault(x => x.Id == canimal.Id);
+                    if (animal.Name != canimal.Name) 
+                    {
+                        animal.Name = canimal.Name;
+                    }
 
-                    if (animal.Name != canimal.Name) animal.Name = canimal.Name;
-                    //if (animal.SkinColor.Name != canimal.SkinColor) animal.SkinColor = canimal.SkinColor;
-                    if (animal.Name != canimal.Name) animal.Name = canimal.Name;
-                    if (animal.Name != canimal.Name) animal.Name = canimal.Name;
-                    if (animal.Name != canimal.Name) animal.Name = canimal.Name;
-                     
+                    if (animal.SkinColor.Name != canimal.SkinColor) 
+                    {
+                        animal.SkinColorId = db.SkinColor.First(x => x.Name == canimal.SkinColor).Id;
+                    }
 
-                    return canimal;
+                    if (animal.AnimalType.Name != canimal.AnimalType)
+                    {
+                        animal.AnimalTypeId = db.AnimalType.First(x => x.Name == canimal.AnimalType).Id;
+                    }
+
+                    if (animal.Location.Name != canimal.Location)
+                    {
+                        animal.LocationId = db.Location.First(x => x.Name == canimal.Location).Id;
+                    }
+
+                    db.SaveChanges();
+
+                    return true;
                 }
                 catch
                 {
-                    return null;
+                    return false;
                 }
             }
         }

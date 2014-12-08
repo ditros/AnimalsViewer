@@ -53,9 +53,10 @@ namespace AnimalsViewer.Controllers
             return PartialView(canimal);
         }
 
-        public ActionResult Update(CAnimal canimal)
+        [HttpPost]
+        public ActionResult Update(CAnimal model)
         {
-            AnimalsDbWorker.UpdateAnimal(canimal);
+            AnimalsDbWorker.UpdateAnimal(model);
 
             return RedirectToAction("Index");
         }
