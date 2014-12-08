@@ -75,5 +75,12 @@ namespace AnimalsViewer.Models
                 _locations = db.Location.ToList();
             }
         }
+
+        public void GetDataForComboBoxes()
+        {
+            GetAnimalTypesFromDb();
+            GetLocationsFromDb();
+            GetSkinColorsFromDb();
+        }
     }
 }

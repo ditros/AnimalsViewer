@@ -39,7 +39,8 @@
         {
             <tr>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new {id = animal.Id})|
+                    @{var editId = "edit_" + animal.Id;}
+                    <a href="#" id='@editId'>Edit</a>
                     @Html.ActionLink("Delete", "Delete", new {id = animal.Id})
                 </td>
 
@@ -75,6 +76,55 @@
     <p>
         @Html.ActionLink("Add new animal", "Create")
     </p>
+
+    <div id="modal_form">
+        <span id="modal_close">x</span> 
+        <div id="animal">
+            
+        </div>
+    </div>
+    <div id="overlay"></div>
 }
+
+<script src="Scripts/jquery-1.8.2.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('a[id^="edit_"]').click(function (event) {
+            var elementId = this.id;
+            var animalId = elementId.substring("edit_".length);
+            event.preventDefault();
+
+            $.ajax({
+                url: "Animals/Edit",
+                type: "POST",
+                data: { id: animalId },
+                success: function (returnArgs) {
+                    $("#animal").html(returnArgs);
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    alert(errorThrown);
+                }
+            });
+
+            $('#overlay').fadeIn(400,
+                function () {
+                    $('#modal_form')
+                        .css('display', 'block') 
+                        .animate({ opacity: 1, top: '50%' }, 200);
+                });
+        });
+        
+        $('#modal_close, #overlay').click(function () { 
+            $('#modal_form')
+                .animate({ opacity: 0, top: '45%' }, 200,
+                    function () { 
+                        $(this).css('display', 'none'); 
+                        $('#overlay').fadeOut(400); 
+                    }
+                );
+        });
+    });
+</script>
+
 
         

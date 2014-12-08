@@ -16,9 +16,7 @@ namespace AnimalsViewer.Controllers
         public ActionResult Create()
         {
             var canimal = new CAnimal();
-            canimal.GetSkinColorsFromDb();
-            canimal.GetAnimalTypesFromDb();
-            canimal.GetLocationsFromDb();
+            canimal.GetDataForComboBoxes();
 
             return View(canimal);
         }
@@ -35,11 +33,6 @@ namespace AnimalsViewer.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Edit(int id)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public ActionResult Delete(int id)
         {
             if (AnimalsDbWorker.DeleteAnimalFromDb(id))
@@ -47,6 +40,22 @@ namespace AnimalsViewer.Controllers
                 ViewBag.AnimalCreationResult = "Животное успешно удалено";
             }
             else ViewBag.AnimalCreationResult = "Животное не удалено";
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult Edit(int id)
+        {
+            var canimal = AnimalsDbWorker.GetAnimalById(id);
+            canimal.GetDataForComboBoxes();
+
+            return PartialView(canimal);
+        }
+
+        public ActionResult Update(CAnimal canimal)
+        {
+            AnimalsDbWorker.UpdateAnimal(canimal);
 
             return RedirectToAction("Index");
         }

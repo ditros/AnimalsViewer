@@ -12,30 +12,18 @@ namespace AnimalsViewer.DbWorker
             using (var db = new AnimalsEntities())
             {
                 var animals = db.Animal.ToList();
-
-                if(animals.Count > 0)
-                {
-                    var animalsList = new List<CAnimal>();
-
-                    foreach (var animal in animals)
+                var animalsList = animals.Select(x => new CAnimal
                     {
-                        var canimal = new CAnimal
-                                          {
-                                              Id = animal.Id,
-                                              AnimalType = animal.AnimalType.Name,
-                                              Name = animal.Name,
-                                              SkinColor = animal.SkinColor.Name,
-                                              Location = animal.Location.Name,
-                                              Region = animal.Location.Region.Name
-                                          };
-                        animalsList.Add(canimal);
-                    }
+                        Id = x.Id,
+                        Name = x.Name,
+                        AnimalType = x.AnimalType.Name,
+                        SkinColor = x.SkinColor.Name,
+                        Location = x.Location.Name,
+                        Region = x.Location.Region.Name
+                    }).ToList();
 
-                    return animalsList;
-                }
+                return animalsList;
             }
-
-            return null;
         }
 
         public static bool AddAnimalToDb(CAnimal animal)
@@ -87,6 +75,56 @@ namespace AnimalsViewer.DbWorker
             }
 
             return false;
+        }
+
+        public static CAnimal GetAnimalById(int id)
+        {
+            using (var db = new AnimalsEntities())
+            {
+                try
+                {
+                    var animal = db.Animal.FirstOrDefault(x => x.Id == id);
+                    var canimal = new CAnimal
+                                        {
+                                            Id = animal.Id,
+                                            Name = animal.Name,
+                                            AnimalType = animal.AnimalType.Name,
+                                            SkinColor = animal.SkinColor.Name,
+                                            Location = animal.Location.Name,
+                                            Region = animal.Location.Region.Name
+                                        };
+
+                    return canimal;
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+        }
+
+        public static bool UpdateAnimal(CAnimal canimal)
+        {
+            using (var db = new AnimalsEntities())
+            {
+                try
+                {
+                    var animal = db.Animal.FirstOrDefault(x => x.Id == canimal.Id);
+
+                    if (animal.Name != canimal.Name) animal.Name = canimal.Name;
+                    //if (animal.SkinColor.Name != canimal.SkinColor) animal.SkinColor = canimal.SkinColor;
+                    if (animal.Name != canimal.Name) animal.Name = canimal.Name;
+                    if (animal.Name != canimal.Name) animal.Name = canimal.Name;
+                    if (animal.Name != canimal.Name) animal.Name = canimal.Name;
+                     
+
+                    return canimal;
+                }
+                catch
+                {
+                    return null;
+                }
+            }
         }
     }
 }

@@ -1,13 +1,6 @@
 ﻿@model AnimalsViewer.Models.CAnimal
 
-@{
-    ViewBag.Title = "Create";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
-<h2>Create</h2>
-
-@using (Html.BeginForm()) {
+@using (Html.BeginForm("Update", "Animals", FormMethod.Get)) {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
@@ -26,6 +19,7 @@
             @Html.LabelFor(model => model.AnimalType)
         </div>
         <div>
+            @*Html.EditorFor(model => model.AnimalType)*@
             @Html.DropDownListFor(model => model.AnimalType, Model.AnimalTypes)
             @Html.ValidationMessageFor(model => model.AnimalType)
         </div>
@@ -34,6 +28,7 @@
             @Html.LabelFor(model => model.SkinColor)
         </div>
         <div>
+            @*Html.EditorFor(model => model.SkinColor)*@
             @Html.DropDownListFor(model => model.SkinColor, Model.SkinColors)
             @Html.ValidationMessageFor(model => model.SkinColor)
         </div>
@@ -42,20 +37,13 @@
             @Html.LabelFor(model => model.Location)
         </div>
         <div>
+            @*Html.EditorFor(model => model.Location)*@
             @Html.DropDownListFor(model => model.Location, Model.Locations)
             @Html.ValidationMessageFor(model => model.Location)
         </div>
 
         <p>
-            <input type="submit" value="Create" />
+            <input type="submit" value="Update" />
         </p>
     </fieldset>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
 }
