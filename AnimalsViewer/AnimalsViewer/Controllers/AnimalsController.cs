@@ -60,5 +60,20 @@ namespace AnimalsViewer.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public ActionResult Find()
+        {
+            var searchModel = new SearchModel();
+            searchModel.GetDataForComboBoxes();
+            return View(searchModel);
+        }
+
+        [HttpPost]
+        public ActionResult FoundAnimals(SearchModel model)
+        {
+            /*var searchModel = new SearchModel();
+            searchModel.GetDataForComboBoxes();*/
+            return PartialView();
+        }
     }
 }

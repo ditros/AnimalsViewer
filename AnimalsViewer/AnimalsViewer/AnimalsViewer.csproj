@@ -220,6 +220,7 @@
     <Compile Include="Models\Region.cs">
       <DependentUpon>AnimalsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SearchModel.cs" />
     <Compile Include="Models\SkinColor.cs">
       <DependentUpon>AnimalsModel.tt</DependentUpon>
     </Compile>
@@ -360,6 +361,8 @@
     <Content Include="Views\Animals\Index.cshtml" />
     <Content Include="Views\Animals\Create.cshtml" />
     <Content Include="Views\Animals\Edit.cshtml" />
+    <Content Include="Views\Animals\Find.cshtml" />
+    <Content Include="Views\Animals\FoundAnimals.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

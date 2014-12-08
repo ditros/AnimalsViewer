@@ -5,16 +5,8 @@ using System.Linq;
 
 namespace AnimalsViewer.Models
 {
-    public class CAnimal
+    public class SearchModel
     {
-        public int Id { get; set; }
-
-        [Required]
-        [StringLength(50, ErrorMessage = "Значение \"{0}\" должно содержать не менее {2} символов.", MinimumLength = 2)]
-        [Display(Name = "Name")]
-        public string Name { get; set; }
-
-        [Required]
         [Display(Name = "Animal type")]
         public string AnimalType { get; set; }
 
@@ -25,9 +17,7 @@ namespace AnimalsViewer.Models
             get { return new SelectList(_animalTypes, "Name", "Name"); }
         }
 
-
-        [Required]
-        [Display(Name = "Skin color")]
+        [Display(Name = "Skin Color")]
         public string SkinColor { get; set; }
 
         private List<SkinColor> _skinColors;
@@ -37,20 +27,8 @@ namespace AnimalsViewer.Models
             get { return new SelectList(_skinColors, "Name", "Name"); }
         }
 
-        [Required]
-        [Display(Name = "Location")]
-        public string Location { get; set; }
-
-        private List<Location> _locations;
-
-        public IEnumerable<SelectListItem> Locations
-        {
-            get { return new SelectList(_locations, "Name", "Name"); }
-        }
-
-        [Required]
         [Display(Name = "Region")]
-        public string Region { get; set; }
+        public List<Region> Regions { get; set; }
 
         public void GetSkinColorsFromDb()
         {
@@ -68,19 +46,19 @@ namespace AnimalsViewer.Models
             }
         }
 
-        public void GetLocationsFromDb()
+        private void GetRegionsFromDb()
         {
             using (var db = new AnimalsEntities())
             {
-                _locations = db.Location.ToList();
+                Regions = db.Region.ToList();
             }
         }
 
         public void GetDataForComboBoxes()
         {
             GetAnimalTypesFromDb();
-            GetLocationsFromDb();
             GetSkinColorsFromDb();
+            GetRegionsFromDb();
         }
     }
 }

@@ -1,10 +1,6 @@
 ﻿@model List<AnimalsViewer.Models.CAnimal>
 
 @{
-    ViewBag.Title = "Animals";    
-}
-
-@{
     <table>
         <tr>
 
@@ -35,8 +31,11 @@
             </th>
 
         </tr> 
-        @foreach (var animal in Model)
+    @{
+        if(Model !=null)
         {
+            foreach (var animal in Model)
+            {
             <tr>
                 <td>
                     @{var editId = "edit_" + animal.Id;}
@@ -69,14 +68,11 @@
                 </td>
 
             </tr>
-        } 
+            } 
+        }
+    }
 
     </table>
-
-    <p>
-        @Html.ActionLink("Add new animal", "Create")
-        @Html.ActionLink("Find animal", "Find")
-    </p>
 
     <div id="modal_form">
         <span id="modal_close">x</span> 
@@ -127,5 +123,6 @@
     });
 </script>
 
-
-        
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
