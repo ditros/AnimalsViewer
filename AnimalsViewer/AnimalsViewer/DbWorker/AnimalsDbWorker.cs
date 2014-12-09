@@ -141,13 +141,14 @@ namespace AnimalsViewer.DbWorker
             }
         }
 
-        public static List<CAnimal> FindAnimal(int? animalTypeId, int? skinColorId)
+        public static List<CAnimal> FindAnimal(int? animalTypeId, int? skinColorId, int[] selectedRegions)
         {
             using (var db = new AnimalsEntities())
             {
                 try
                 {
                     var animals = db.Animal.ToList();
+                    
                     if (animalTypeId != null)
                     {
                         animals = animals.Where(x => x.AnimalTypeId == animalTypeId).ToList();
@@ -155,6 +156,10 @@ namespace AnimalsViewer.DbWorker
                     if (skinColorId != null)
                     {
                         animals = animals.Where(x => x.SkinColorId == skinColorId).ToList();
+                    }
+                    if (selectedRegions != null)
+                    {
+                        animals = animals.Where(x => selectedRegions.ToList().Contains((int)x.Location.RegionId)).ToList();
                     }
 
                     var canimals = animals.Select(x => new CAnimal

@@ -4,16 +4,6 @@
     ViewBag.Title = "Animals";    
 }
 
-@{
-    @*using(Html.BeginForm("Search", "Animals", FormMethod.Get))
-    {
-        <p>
-            <input type="submit" id="search" value="Search" />
-            @Html.DropDownList("SkinColorId", String.Empty)
-            @Html.DropDownList("AnimalTypeId", String.Empty)
-        </p>
-    }*@
-    
     <p>
         <input type="button" id="search" value="Search" />
         @Html.DropDownList("SkinColorId", String.Empty)
@@ -112,7 +102,6 @@
     <div id="foundAnimals">
     
     </div>
-}
 
 <script src="Scripts/jquery-1.8.2.min.js"></script>
 <script>
@@ -166,8 +155,10 @@
 
             $.ajax({
                 url: "Animals/Search",
-                type: "POST",
+                type: "GET",
+                traditional: true,
                 data: optionsSearch,
+                //data: { SelectedRegions: array },
                 success: function (data) {
                     $("#foundAnimals").html(data);
                 },

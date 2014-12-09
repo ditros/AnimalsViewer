@@ -87,11 +87,11 @@ namespace AnimalsViewer.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Search(int? skinColorId, int? animalTypeId, int?[] selectedRegions)
+        public ActionResult Search(int? skinColorId, int? animalTypeId, int[] selectedRegions)
         {
-            var animals = AnimalsDbWorker.FindAnimal(animalTypeId, skinColorId);
+           var animals = AnimalsDbWorker.FindAnimal(animalTypeId, skinColorId, selectedRegions);
 
-            return PartialView(animals);
+           return PartialView(animals);
         }
     }
 }
