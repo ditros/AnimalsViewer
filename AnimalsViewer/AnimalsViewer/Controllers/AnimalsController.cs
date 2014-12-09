@@ -50,22 +50,14 @@ namespace AnimalsViewer.Controllers
         [HttpPost]
         public ActionResult Create(CAnimal animal)
         {
-            if(AnimalsDbWorker.AddAnimalToDb(animal))
-            {
-                ViewBag.AnimalCreationResult = "Животное успешно добавлено";
-            }
-            else ViewBag.AnimalCreationResult = "Животное не добавлено";
+            AnimalsDbWorker.AddAnimalToDb(animal);
 
             return RedirectToAction("Index");
         }
 
         public ActionResult Delete(int id)
         {
-            if (AnimalsDbWorker.DeleteAnimalFromDb(id))
-            {
-                ViewBag.AnimalCreationResult = "Животное успешно удалено";
-            }
-            else ViewBag.AnimalCreationResult = "Животное не удалено";
+            AnimalsDbWorker.DeleteAnimalFromDb(id);
 
             return RedirectToAction("Index");
         }
