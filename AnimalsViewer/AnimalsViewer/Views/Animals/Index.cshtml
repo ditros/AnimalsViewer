@@ -19,86 +19,6 @@
 
     </p>
     
-    <table>
-        <tr>
-
-            <th>@ViewBag.AnimalCreationResult</th>
-
-            <th>
-                Id
-            </th>
-
-            <th>
-                Name
-            </th>
-
-            <th>
-                Type
-            </th>
-
-            <th>
-                Color
-            </th>
-
-            <th>
-                Region
-            </th>
-            
-            <th>
-                Location
-            </th>
-
-        </tr> 
-        @foreach (var animal in Model)
-        {
-            <tr>
-                <td>
-                    @{var editId = "edit_" + animal.Id;}
-                    <a href="#" id='@editId'>Edit</a>
-                    @Html.ActionLink("Delete", "Delete", new { id = animal.Id })
-                </td>
-
-                <td>
-                    @Html.Encode(animal.Id)
-                </td>
-
-                <td>
-                    @Html.Encode(animal.Name)
-                </td>
-
-                <td>
-                    @Html.Encode(animal.AnimalType)
-                </td>
-
-                <td>
-                    @Html.Encode(animal.SkinColor)
-                </td>
-
-                <td>
-                    @Html.Encode(animal.Region)
-                </td>
-                
-                <td>
-                    @Html.Encode(animal.Location)
-                </td>
-
-            </tr>
-        } 
-
-    </table>
-
-    <p>
-        @Html.ActionLink("Add new animal", "Create")
-    </p>
-
-    <div id="modal_form">
-        <span id="modal_close">x</span> 
-        <div id="animal">
-            
-        </div>
-    </div>
-    <div id="overlay"></div>
-    
     <div id="foundAnimals">
     
     </div>
@@ -106,40 +26,21 @@
 <script src="Scripts/jquery-1.8.2.min.js"></script>
 <script>
     $(document).ready(function () {
-        $('a[id^="edit_"]').click(function (event) {
-            var elementId = this.id;
-            var animalId = elementId.substring("edit_".length);
-            event.preventDefault();
 
+        window.onload = function () {
             $.ajax({
-                url: "Animals/Edit",
-                type: "POST",
-                data: { id: animalId },
-                success: function (returnArgs) {
-                    $("#animal").html(returnArgs);
+                url: "Animals/Search",
+                type: "GET",
+                traditional: true,
+                data: null,
+                success: function (data) {
+                    $("#foundAnimals").html(data);
                 },
                 error: function (xhr, textStatus, errorThrown) {
                     alert(errorThrown);
                 }
             });
-
-            $('#overlay').fadeIn(400,
-                function () {
-                    $('#modal_form')
-                        .css('display', 'block') 
-                        .animate({ opacity: 1, top: '50%' }, 200);
-                });
-        });
-        
-        $('#modal_close, #overlay').click(function () { 
-            $('#modal_form')
-                .animate({ opacity: 0, top: '45%' }, 200,
-                    function () { 
-                        $(this).css('display', 'none'); 
-                        $('#overlay').fadeOut(400); 
-                    }
-                );
-        });
+        };
 
         $('#search').click(function () {
             var array = [];
@@ -158,7 +59,6 @@
                 type: "GET",
                 traditional: true,
                 data: optionsSearch,
-                //data: { SelectedRegions: array },
                 success: function (data) {
                     $("#foundAnimals").html(data);
                 },
