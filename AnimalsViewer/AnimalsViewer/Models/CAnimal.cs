@@ -10,7 +10,7 @@ namespace AnimalsViewer.Models
         public int Id { get; set; }
 
         [Required]
-        [StringLength(50, ErrorMessage = "Значение \"{0}\" должно содержать не менее {2} символов.", MinimumLength = 2)]
+        [StringLength(50, ErrorMessage = "Value \"{0}\" must contain {2} or more symblos.", MinimumLength = 2)]
         [Display(Name = "Name")]
         public string Name { get; set; }
 
@@ -24,7 +24,6 @@ namespace AnimalsViewer.Models
         {
             get { return new SelectList(_animalTypes, "Name", "Name"); }
         }
-
 
         [Required]
         [Display(Name = "Skin color")]
