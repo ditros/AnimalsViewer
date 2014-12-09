@@ -5,6 +5,30 @@
 }
 
 @{
+    @*using(Html.BeginForm("Search", "Animals", FormMethod.Get))
+    {
+        <p>
+            <input type="submit" id="search" value="Search" />
+            @Html.DropDownList("SkinColorId", String.Empty)
+            @Html.DropDownList("AnimalTypeId", String.Empty)
+        </p>
+    }*@
+    
+    <p>
+        <input type="button" id="search" value="Search" />
+        @Html.DropDownList("SkinColorId", String.Empty)
+        @Html.DropDownList("AnimalTypeId", String.Empty)
+
+        @{
+            foreach(var region in ViewBag.Regions as ICollection<AnimalsViewer.Models.Region>)
+            {
+                <input type="checkbox" id="SelectedRegions" name="selectedRegions" value='@region.Id'>
+                @region.Name
+            }
+        }
+
+    </p>
+    
     <table>
         <tr>
 
@@ -41,7 +65,7 @@
                 <td>
                     @{var editId = "edit_" + animal.Id;}
                     <a href="#" id='@editId'>Edit</a>
-                    @Html.ActionLink("Delete", "Delete", new {id = animal.Id})
+                    @Html.ActionLink("Delete", "Delete", new { id = animal.Id })
                 </td>
 
                 <td>
@@ -75,7 +99,6 @@
 
     <p>
         @Html.ActionLink("Add new animal", "Create")
-        @Html.ActionLink("Find animal", "Find")
     </p>
 
     <div id="modal_form">
@@ -85,6 +108,10 @@
         </div>
     </div>
     <div id="overlay"></div>
+    
+    <div id="foundAnimals">
+    
+    </div>
 }
 
 <script src="Scripts/jquery-1.8.2.min.js"></script>
@@ -123,6 +150,31 @@
                         $('#overlay').fadeOut(400); 
                     }
                 );
+        });
+
+        $('#search').click(function () {
+            var array = [];
+            $('input:checked').each(function () {
+                array.push($(this).val());
+            });
+
+            var optionsSearch = {
+                "SkinColorId": $('#SkinColorId').val(),
+                "AnimalTypeId": $('#AnimalTypeId').val(),
+                "SelectedRegions": array
+            };
+
+            $.ajax({
+                url: "Animals/Search",
+                type: "POST",
+                data: optionsSearch,
+                success: function (data) {
+                    $("#foundAnimals").html(data);
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    alert(errorThrown);
+                }
+            });
         });
     });
 </script>
